@@ -1,4 +1,5 @@
 from go_to_page import go_to_page as gtp
+from go_to_page import teardown as td
 from go_to_page import get_el_xpath as get_el
 from go_to_page import get_els_xpath as get_els
 from go_to_page import driver
@@ -22,8 +23,8 @@ def get_listings():
             get_el('//input[@type="submit" and @value="I accept. Take me to the listings."]').click()
         except:
             pass
-
     
+
         elems = get_els('//a[@href]')
         for elem in elems:
             elemLink = elem.get_attribute("href")
@@ -35,16 +36,22 @@ def get_listings():
             links.append(elemLink) # class 'str'
     uniqueLinks = [*set(links)]
     print(len(uniqueLinks))
-    driver.quit()
+    td()
     return uniqueLinks
 
-'''
-https://www.listingsproject.com/listings/1-room-avail-in-prime-lic-2bd
-https://www.listingsproject.com/listings/seeking-roommate-for-2-bedroom-bushwick-apartment
-https://www.listingsproject.com/listings/happy-one-bedroom-in-bronx-little-italy-92009f34-848d-49cf-9099-4a83a4670728
-https://www.listingsproject.com/listings/funky-two-bedroom-sublet-sleeps-3
-https://www.listingsproject.com/listings/sublet-in-nolita-ead448c3-ea75-478c-983a-57e3a7664f4e
-https://www.listingsproject.com/listings/sunny-penthouse-in-greenwich-village-b312a815-4336-4da6-a6e9-b79892f4261a
-https://www.listingsproject.com/listings/exceptional-furnished-studio-and-office-in-best-area-no-fee-99239c1c-aa1b-436b-a84d-8cc64a849aaa
+li = get_listings()
 
+f = open("listings_lists.py", "a")
+f.write('listingList = [ \n')
+for l in li:
+    f.write('"' + l + '",\n')
+
+f.write(']')
+f.close()
+'''
+https://www.listingsproject.com/listings/hidden-rear-house-in-prime-williamsburg-with-garden
+https://www.listingsproject.com/listings/light-plant-filled-crown-heights-apartment-abc42672-9d0d-4788-a508-7b18a851674a
+https://www.listingsproject.com/listings/large-bedroom-great-light-in-spacious-loft-w-in-unit-laundry-dryer-d942505c-825d-4537-ad04-5b5ece6ed5a8
+https://www.listingsproject.com/listings/room-for-rent-in-3br-1ba-in-prospect-lefferts-gardens
+https://www.listingsproject.com/listings/1-large-bedroom-in-2-bd-apt-crown-heights
 '''
